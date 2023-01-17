@@ -9,36 +9,44 @@ import Paper from '@mui/material/Paper';
 import AddGameButton from './AddGame';
 import UpdateGame from './UpdateGame';
 import Button from '@mui/material/Button';
-import FinalScoreBoard from './FinalScoreBoard';
 
 function ScoreBoard() {
 
     const [board, setBoard] = useState([]);
-    const [finalBoard, setFinalBoard] = useState([]);
+
+    const setBoardOrder = (scoreBoard) =>{
+        const result = scoreBoard.sort((a, b)=> {
+            if ((a.homeScore + a.awayScore) === (b.homeScore + b.awayScore)){
+              return a.date < b.date ? -1 : 1;
+            } else {
+              return ((a.homeScore + a.awayScore) > (b.homeScore + b.awayScore)) ? -1 : 1;
+            }
+        });
+        return result;
+    }
 
     const addGame = (home, away) => {
-        const game = {homeName: home, homeScore:0, awayName: away, awayScore:0}
-        setBoard([...board, game ]);
+        const game = {homeName: home, homeScore:0, awayName: away, awayScore:0, date: Date.now()}
+        setBoard(setBoardOrder([...board, game ]));
     }
 
     const removeGame = (index) => {
         const newBoard = [...board];
-        const game = newBoard.splice(index, 1);
-        console.log('removed  game: ');
-        console.log(...game);
-        setBoard(newBoard);
-        setFinalBoard([...finalBoard, ...game]);
+        newBoard.splice(index, 1);
+        setBoard(setBoardOrder(newBoard));
     }
 
     const updateGameModal =(index, homeScore, awayScore)=>{
         const newBoard = [...board];
-        newBoard[index].homeScore = homeScore;
-        newBoard[index].awayScore = awayScore;
-        setBoard(newBoard);
+        if(homeScore !== ''){
+            newBoard[index].homeScore = Number(homeScore)
+        }
+        if(awayScore !== ''){
+            newBoard[index].awayScore = Number(awayScore)
+        }
+        setBoard(setBoardOrder(newBoard));
     }
 
-    console.log('finalBoard')
-    console.log(finalBoard)
     return (
         <>
         <AddGameButton addNewGame={addGame}/>
@@ -89,7 +97,6 @@ function ScoreBoard() {
            </TableBody>
          </Table>
        </TableContainer>
-       <FinalScoreBoard scoreBoard={finalBoard}/>
         </>
     );
   }
