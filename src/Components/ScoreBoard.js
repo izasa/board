@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,38 +7,38 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddGameButton from './AddGame';
-import { useState } from "react"
-
-
-const initBoard = [
-    {
-        homeName: 'Alabama',
-        homeScore: 5,
-        awayName: 'AU',
-        awayScore: 0
-    },
-    {
-        homeName: 'Nevada',
-        homeScore: 4,
-        awayName: 'Arizona',
-        awayScore: 2
-    }
-];
+import UpdateGame from './UpdateGame';
+import Button from '@mui/material/Button';
+import FinalScoreBoard from './FinalScoreBoard';
 
 function ScoreBoard() {
+
     const [board, setBoard] = useState([]);
+    const [finalBoard, setFinalBoard] = useState([]);
 
     const addGame = (home, away) => {
         const game = {homeName: home, homeScore:0, awayName: away, awayScore:0}
-
         setBoard([...board, game ]);
     }
 
+    const removeGame = (index) => {
+        const newBoard = [...board];
+        const game = newBoard.splice(index, 1);
+        console.log('removed  game: ');
+        console.log(...game);
+        setBoard(newBoard);
+        setFinalBoard([...finalBoard, ...game]);
+    }
 
-    // React.useEffect(() => {
-    //     console.log('useeffect')
-    // }, [board]);
+    const updateGameModal =(index, homeScore, awayScore)=>{
+        const newBoard = [...board];
+        newBoard[index].homeScore = homeScore;
+        newBoard[index].awayScore = awayScore;
+        setBoard(newBoard);
+    }
 
+    console.log('finalBoard')
+    console.log(finalBoard)
     return (
         <>
         <AddGameButton addNewGame={addGame}/>
@@ -66,18 +66,30 @@ function ScoreBoard() {
                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                >
                  <TableCell component="th" scope="row">
-                   {++index}.
+                   {index + 1}.
                  </TableCell>
                  <TableCell>{row.homeName}</TableCell>
                  <TableCell>{row.homeScore} : {row.awayScore}</TableCell>
                  <TableCell>{row.awayName}</TableCell>
-                 <TableCell align="right">BUTTON</TableCell>
-                 <TableCell align="right">BUTTON</TableCell>
+                 <TableCell align="right">
+                    <UpdateGame 
+                        updateGame={updateGameModal}
+                        index={index}
+                        homeName={row.homeName}
+                        awayName={row.awayName}
+                        homeScore={row.homeScore}
+                        awayScore={row.awayScore}
+                    />
+                </TableCell>
+                <TableCell align="right">
+                    <Button onClick={()=>removeGame(index)} variant="outlined">Finish</Button>
+                </TableCell>
                </TableRow>
              ))}
            </TableBody>
          </Table>
        </TableContainer>
+       <FinalScoreBoard scoreBoard={finalBoard}/>
         </>
     );
   }
