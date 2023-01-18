@@ -14,7 +14,7 @@ function Banner() {
                         variant="h6"
                     >
                         Live Football World Cup Score Board
-            </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
         </div>

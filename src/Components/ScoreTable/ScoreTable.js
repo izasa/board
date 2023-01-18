@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,11 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Modal from './Modal';
+import Modal from '../Modal/Modal';
 
 function ScoreTable({board, updateGameModal, removeGame }) {
     return (
-
         <TableContainer component={Paper} style={{
             'max-width': '1000px',
             marginRight: 'auto',

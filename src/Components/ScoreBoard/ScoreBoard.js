@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Divider from '@mui/material/Divider';
-import Modal from './Modal';
-import ScoreTable from './ScoreTable';
+import Modal from '../Modal/Modal';
+import ScoreTable from '../ScoreTable/ScoreTable';
 
 function ScoreBoard() {
 
@@ -58,10 +58,10 @@ function ScoreBoard() {
                 />
             </div>
             <Divider variant="middle" />
-            <div style={{ padding: '50px 0 30px 0' }}>
+            <div data-cy="title" style={{ padding: '50px 0 30px 0' }}>
                 Score board: currently {board.length} matches are played
             </div>
-            <ScoreTable board={board} updateGameModal={updateGameModal} removeGame={removeGame} />
+            {board.length > 0 && (<ScoreTable board={board} updateGameModal={updateGameModal} removeGame={removeGame} />)}
         </>
     );
 }

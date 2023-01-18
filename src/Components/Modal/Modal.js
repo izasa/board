@@ -55,7 +55,6 @@ function Modal({ onSubmit, homeLabel, awayLabel, homeInput, awayInput, index, in
                         onChange={handleInputHomeValue}
                     />
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="awayTeam"
                         label={awayLabel}
@@ -67,7 +66,7 @@ function Modal({ onSubmit, homeLabel, awayLabel, homeInput, awayInput, index, in
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleOnSubmit}>Submit</Button>
+                    <Button data-cy="submit" onClick={handleOnSubmit}>Submit</Button>
                 </DialogActions>
             </Dialog>
         </>

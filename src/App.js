@@ -1,6 +1,5 @@
-import logo from './logo.svg';
-import Banner from './Components/Banner';
-import ScoreBoard from './Components/ScoreBoard';
+import Banner from './Components/Banner/Banner';
+import ScoreBoard from './Components/ScoreBoard/ScoreBoard';
 
 import './App.css';
 
@@ -9,7 +8,6 @@ function App() {
     <div className="App">
         <Banner/>
         <ScoreBoard/>
-
     </div>
   );
 }
