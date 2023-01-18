@@ -40,26 +40,31 @@ function ScoreBoard() {
         setBoard(setBoardOrder(newBoard));
     }
 
+    const getMatchTitle = () =>
+        board.length !== 1
+            ? `Score board: currently ${board.length} matches are played`
+            : 'Score board: currently 1 match is played'
+
     return (
         <>
             <div style={{
                 'margin': '20px 0'
             }}>
                 <Modal
-                        onSubmit={addGame}
-                        homeLabel="Home team name"
-                        awayLabel="Away team name"
-                        homeInput=""
-                        awayInput=""
-                        index={null}
-                        inputType="text"
-                        operation="Add"
+                    onSubmit={addGame}
+                    homeLabel="Home team name"
+                    awayLabel="Away team name"
+                    homeInput=""
+                    awayInput=""
+                    index={null}
+                    inputType="text"
+                    operation="Add"
 
                 />
             </div>
             <Divider variant="middle" />
             <div data-cy="title" style={{ padding: '50px 0 30px 0' }}>
-                Score board: currently {board.length} matches are played
+                {getMatchTitle()}
             </div>
             {board.length > 0 && (<ScoreTable board={board} updateGameModal={updateGameModal} removeGame={removeGame} />)}
         </>

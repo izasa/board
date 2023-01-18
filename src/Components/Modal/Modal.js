@@ -40,7 +40,7 @@ function Modal({ onSubmit, homeLabel, awayLabel, homeInput, awayInput, index, in
 
     return (
         <>
-            <Button onClick={handleClickOpen} variant="outlined" > {operation} game</Button>
+            <Button data-cy={operation} onClick={handleClickOpen} variant="outlined" > {operation} game</Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{operation} game</DialogTitle>
                 <DialogContent>

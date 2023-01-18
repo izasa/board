@@ -12,7 +12,7 @@ import Modal from '../Modal/Modal';
 function ScoreTable({board, updateGameModal, removeGame }) {
     return (
         <TableContainer component={Paper} style={{
-            'max-width': '1000px',
+            'maxWidth': '1000px',
             marginRight: 'auto',
             marginLeft: 'auto'
         }}>
